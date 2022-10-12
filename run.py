@@ -76,3 +76,29 @@ def buffer():
 
 # print(x)
 
+
+def get_order():
+    """
+    Get order info from user,
+    which type of burger.
+    """
+    print_type("Hello & welcome to Burger Lab.\n")
+    print_type("What type of burger can I get you today?\n")
+    print_type("You can select from Beef or Vegan.\n")
+    # Request user input
+    type_of_burger = input_type("Please enter 'b' for Beef & 'v' for Vegan.\n")
+    if type_of_burger.lower() == ("b"):
+        print_type("Great! You have chosen a Beef burger.\n")
+        pass
+    elif type_of_burger.lower() == ("v"):
+        print_type("Great! You have chosen a Vegan burger.\n")
+        pass
+    else:
+    # elif type_of_burger.lower() != ("b", "v"):
+        print_type("Oops. Looks like you choose something that's not available. Should we try this again.\n")
+        # Function that calls a pause before clearing the screen
+        buffer()
+        clearScreen()
+        get_order()
+
+get_order()
