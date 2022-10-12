@@ -19,7 +19,8 @@ SHEET = GSPREAD_CLIENT.open("burger_lab")
 
 burger = SHEET.worksheet("burger")
 doneness = SHEET.worksheet("doneness")
-toppings = SHEET.worksheet("toppings")
+toppings = SHEET.worksheet("toppings").get_all_values()
+top_list = toppings
 drink = SHEET.worksheet("drink")
 
 
@@ -86,13 +87,15 @@ def get_order():
     print_type("What type of burger can I get you today?\n")
     print_type("You can select from Beef or Vegan.\n")
     # Request user input
-    type_of_burger = input_type("Please enter 'b' for Beef & 'v' for Vegan.\n")
-    if type_of_burger.lower() == ("b"):
-        print_type("Great! You have chosen a Beef burger.\n")
-        pass
-    elif type_of_burger.lower() == ("v"):
-        print_type("Great! You have chosen a Vegan burger.\n")
-        pass
+    type_of_burger = input_type("Please enter Beef or Vegan.\n")
+    if type_of_burger.lower() == ("beef"):
+        print_type("\nGreat! You have chosen a Beef burger.\n")
+        customer_order.append("Beef burger.")
+        # return type_of_burger
+    elif type_of_burger.lower() == ("vegan"):
+        print_type("\nExcellent! You have chosen a Vegan burger.\n")
+        customer_order.append("Vegan burger.")
+        # return type_of_burger
     else:
     # elif type_of_burger.lower() != ("b", "v"):
         print_type("Oops. Looks like you choose something that's not available. Should we try this again.\n")
@@ -101,4 +104,43 @@ def get_order():
         clearScreen()
         get_order()
 
-get_order()
+
+def update_worksheet(data, worksheet):
+    """
+    Receives user burger type to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
+    """
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    
+
+
+def get_toppings():
+    toppings_list = []
+    print_type("\nWhat toppings would you like for your burger?\n")
+    for type in top_list:
+        toppings_list.append(type)
+    num = []  
+    for i in range(1, 9):
+        num.append(i)
+
+    get_toppings.type = dict(zip(num, toppings_list))
+    type_table = PrettyTable()
+    type_table.field_names = num
+    type_table.add_row(toppings)
+    print(type_table)
+    
+
+
+
+
+
+def main():
+    """
+    Run all program funcions
+    """
+    get_order()
+    get_toppings()
+    update_worksheet(customer_order, "receipt")
+    # print(customer_order)
+main()
