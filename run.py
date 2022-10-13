@@ -19,16 +19,16 @@ SHEET = GSPREAD_CLIENT.open("burger_lab")
 
 burger = SHEET.worksheet("burger")
 doneness = SHEET.worksheet("doneness")
-toppings = SHEET.worksheet("toppings").get_values()
-# top_list = toppings
+toppings = SHEET.worksheet("toppings")
+top_list = toppings.col_values(1)[1:]
 drink = SHEET.worksheet("drink")
 
 
-customer_order = []
-selected_doneness = []
-selected_toppings = []
-topping_choice = []
-price = []
+CUSTOMER_ORDER = []
+# selected_doneness = []
+SELECTED_TOPPINGS = []
+TOPPING_CHOICE = []
+# price = []
 
 
 
@@ -94,7 +94,6 @@ print("""\
                                        
                                        """)
 
-
 def get_order():
     """
     Get order info from user,
@@ -107,11 +106,11 @@ def get_order():
     type_of_burger = input_type("Please enter Beef or Vegan.\n")
     if type_of_burger.lower() == ("beef"):
         print_type("\nGreat! You have chosen a Beef burger.\n")
-        customer_order.append("Beef burger.")
+        CUSTOMER_ORDER.append("Beef burger.")
         # return type_of_burger
     elif type_of_burger.lower() == ("vegan"):
         print_type("\nExcellent! You have chosen a Vegan burger.\n")
-        customer_order.append("Vegan burger.")
+        CUSTOMER_ORDER.append("Vegan burger.")
         # return type_of_burger
     else:
     # elif type_of_burger.lower() != ("b", "v"):
@@ -129,8 +128,8 @@ def get_cheese():
     print_type("\nWould you like cheese on your burger?\n")
     cheese_on_burger = input_type("y/n\n")
     if cheese_on_burger.lower() == ("y"):
-        print_type("You have added cheese to your to burger.")
-        customer_order.append("Cheese")
+        print_type("You have added cheese to your to burger.\n")
+        CUSTOMER_ORDER.append("Cheese")
 
 def update_worksheet(data, worksheet):
     """
@@ -142,13 +141,17 @@ def update_worksheet(data, worksheet):
     
 
 def get_toppings_table():
-    global selected_toppings
+    """
+    Pulling toppings list from Google Worksheet and
+    Saving it in a variable so that it can be used in
+    prettytable function.
+    """
     toppings_list = []
     print_type("\nWhat toppings would you like for your burger?\n")
-    for type in toppings:
+    for type in top_list:
         toppings_list.append(type)
     num = []  
-    for i in range(1, 8):
+    for i in range(1, 7):
         num.append(i)
 
     get_toppings_table.type = dict(zip(num, toppings_list))
@@ -157,18 +160,23 @@ def get_toppings_table():
     type_table.add_row(toppings_list)
     print(type_table)
 
-    your_toppings = input_type("\nPlease select toppings buy corresponding number separated by ,\n")
-    
+def get_toppings():
+    global SELECTED_TOPPINGS
+    tops = []
+    (map(int, input_type("\nPlease select toppings by using corresponding number\n")))
+    SELECTED_TOPPINGS = [int(i)for i in tops]
+
+    # return SELECTED_TOPPINGS
+    CUSTOMER_ORDER.append(SELECTED_TOPPINGS)
+    get_toppings_choice()
 
 
 
-def toppings_choice():
-    global topping_choice
-    for x in selected_toppings:
-        topping_choice.append(toppings[x - 1])
-
-
-
+def get_toppings_choice():
+    global TOPPING_CHOICE
+    TOPPING_CHOICE = []
+    for x in SELECTED_TOPPINGS:
+        TOPPING_CHOICE.append(top_list[x - 1])
 
 
 def main():
@@ -178,8 +186,13 @@ def main():
     get_order()
     get_cheese()
     get_toppings_table()
-    toppings_choice()
-    # update_worksheet(customer_order, "receipt")
-    print(customer_order)
-    print(your_toppings)
+    get_toppings()
+    # get_toppings_choice()
+    # update_worksheet(CUSTOMER_ORDER, "receipt")
+    print(CUSTOMER_ORDER)
+    print(TOPPING_CHOICE)
+
+
 main()
+
+
