@@ -27,7 +27,7 @@ drink = SHEET.worksheet("drink")
 customer_order = []
 selected_doneness = []
 selected_toppings = []
-meal_deal = []
+topping_choice = []
 price = []
 
 
@@ -127,12 +127,10 @@ def get_cheese():
     Ask user if they want cheese on burger.
     """
     print_type("\nWould you like cheese on your burger?\n")
-    cheese_on_burger = input_type("y/n")
+    cheese_on_burger = input_type("y/n\n")
     if cheese_on_burger.lower() == ("y"):
         print_type("You have added cheese to your to burger.")
-
-
-
+        customer_order.append("Cheese")
 
 def update_worksheet(data, worksheet):
     """
@@ -142,7 +140,6 @@ def update_worksheet(data, worksheet):
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     
-
 
 def get_toppings_table():
     global selected_toppings
@@ -160,12 +157,15 @@ def get_toppings_table():
     type_table.add_row(toppings_list)
     print(type_table)
 
+    your_toppings = input_type("\nPlease select toppings buy corresponding number separated by ,\n")
+    
 
 
 
-def select_toppings():
-    global selected_toppings
-
+def toppings_choice():
+    global topping_choice
+    for x in selected_toppings:
+        topping_choice.append(toppings[x - 1])
 
 
 
@@ -176,7 +176,10 @@ def main():
     Run all program funcions
     """
     get_order()
+    get_cheese()
     get_toppings_table()
+    toppings_choice()
     # update_worksheet(customer_order, "receipt")
     print(customer_order)
+    print(your_toppings)
 main()
