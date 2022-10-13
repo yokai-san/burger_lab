@@ -19,8 +19,8 @@ SHEET = GSPREAD_CLIENT.open("burger_lab")
 
 burger = SHEET.worksheet("burger")
 doneness = SHEET.worksheet("doneness")
-toppings = SHEET.worksheet("toppings").get_all_values()
-top_list = toppings
+toppings = SHEET.worksheet("toppings").get_values()
+# top_list = toppings
 drink = SHEET.worksheet("drink")
 
 
@@ -40,7 +40,7 @@ def print_type(text):
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
-        time.sleep(0.05)
+        time.sleep(0.00)
 
 
 def input_type(text):
@@ -50,7 +50,7 @@ def input_type(text):
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
-        time.sleep(0.05)
+        time.sleep(0.00)
     value = input()
     return value
 
@@ -78,13 +78,30 @@ def buffer():
 # print(x)
 
 
+print("""\
+    
+  ____                                 
+ | __ ) _   _ _ __ __ _  ___ _ __      
+ |  _ \| | | | '__/ _` |/ _ \ '__|     
+ | |_) | |_| | | | (_| |  __/ |        
+ |____/ \__,_|_|  \__, |\___|_|        
+                  |___/          _     
+                     | |    __ _| |__  
+                     | |   / _` | '_ \ 
+                     | |__| (_| | |_) |
+                     |_____\__,_|_.__/ 
+                                       
+                                       
+                                       """)
+
+
 def get_order():
     """
     Get order info from user,
     which type of burger.
     """
     print_type("Hello & welcome to Burger Lab.\n")
-    print_type("What type of burger can I get you today?\n")
+    print_type("\nWhat type of burger can I get you today?\n")
     print_type("You can select from Beef or Vegan.\n")
     # Request user input
     type_of_burger = input_type("Please enter Beef or Vegan.\n")
@@ -105,6 +122,18 @@ def get_order():
         get_order()
 
 
+def get_cheese():
+    """
+    Ask user if they want cheese on burger.
+    """
+    print_type("\nWould you like cheese on your burger?\n")
+    cheese_on_burger = input_type("y/n")
+    if cheese_on_burger.lower() == ("y"):
+        print_type("You have added cheese to your to burger.")
+
+
+
+
 def update_worksheet(data, worksheet):
     """
     Receives user burger type to be inserted into a worksheet
@@ -115,21 +144,28 @@ def update_worksheet(data, worksheet):
     
 
 
-def get_toppings():
+def get_toppings_table():
+    global selected_toppings
     toppings_list = []
     print_type("\nWhat toppings would you like for your burger?\n")
-    for type in top_list:
+    for type in toppings:
         toppings_list.append(type)
     num = []  
-    for i in range(1, 9):
+    for i in range(1, 8):
         num.append(i)
 
-    get_toppings.type = dict(zip(num, toppings_list))
+    get_toppings_table.type = dict(zip(num, toppings_list))
     type_table = PrettyTable()
     type_table.field_names = num
-    type_table.add_row(toppings)
+    type_table.add_row(toppings_list)
     print(type_table)
-    
+
+
+
+
+def select_toppings():
+    global selected_toppings
+
 
 
 
@@ -140,7 +176,7 @@ def main():
     Run all program funcions
     """
     get_order()
-    get_toppings()
-    update_worksheet(customer_order, "receipt")
-    # print(customer_order)
+    get_toppings_table()
+    # update_worksheet(customer_order, "receipt")
+    print(customer_order)
 main()
