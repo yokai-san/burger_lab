@@ -108,7 +108,7 @@ def get_order():
     print_type("\nWhat type of burger can I get you today?\n")
     print_type("You can select from Beef or Vegan.\n")
     # Request user input
-    type_of_burger = input_type("\nPlease enter Beef or Vegan.\n")
+    type_of_burger = input_type("\nPlease enter Beef or Vegan:\n")
     if type_of_burger.lower() == ("beef"):
         print_type("\nGreat! You have chosen a Beef burger.\n")
         CUSTOMER_ORDER.append("Beef burger.")
@@ -131,7 +131,7 @@ def get_cheese():
     Ask user if they want cheese on burger.
     """
     print_type("\nWould you like cheese on your burger?\n")
-    cheese_on_burger = input_type("y/n\n")
+    cheese_on_burger = input_type("y/n:\n")
     if cheese_on_burger.lower() == ("y"):
         print_type("\nYou have added cheese to your to burger.\n")
         CUSTOMER_ORDER.append("Cheese")
@@ -186,7 +186,7 @@ def getting_toppings_list():
 # def get_toppings():
 #     global SELECTED_TOPPINGS
 #     tops = []
-#     (map(int, input_type("\nPlease select toppings by using corresponding number\n")))
+#     (map(int, input_type("\nPlease select toppings by using corresponding number:\n")))
 #     SELECTED_TOPPINGS = [int(i)for i in tops]
 
 #     # return SELECTED_TOPPINGS
