@@ -1,31 +1,28 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# introduction
 
-Welcome yokai-san,
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+# objetive
 
-## Reminders
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+# features
 
-## Creating the Heroku app
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+# future feature updates
 
-1. `heroku/python`
-2. `heroku/nodejs`
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+# bugs during development
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
 
-Connect your GitHub repository and deploy as normal.
+#credits
 
-## Constraints
+W3school - [Date and time print ](https://www.w3schools.com/python/python_datetime.asp)
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+101computing - [python typing effect](https://www.101computing.net/python-typing-text-effect/)
 
------
-Happy coding!
+ascii art - [patorijk.com](https://patorjk.com/software/taag/#p=display&c=bash&f=ANSI%20Shadow&t=The%20Inside%20Scoop)
+
+Stack Overflow - [assign number to element in list](https://stackoverflow.com/)
+prettytable - [use of pretty table format in terminal](https://pypi.org/project/prettytable/)
+
+
+
