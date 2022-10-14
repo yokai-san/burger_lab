@@ -13,7 +13,7 @@
 # bugs during development
 
 
-#credits
+# credits
 
 W3school - [Date and time print ](https://www.w3schools.com/python/python_datetime.asp)
 
